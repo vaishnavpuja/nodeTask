@@ -62,7 +62,7 @@ const create = async (req, res) => {
     } catch (error) {
         res.status(500).send({ status: false, message: "Something went wrong " })
     }
-}
+}        
 const deleteProduct = async (req, res) => {
     try {
         let id = req.params.id
