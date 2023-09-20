@@ -11,7 +11,9 @@ const signup = async (req, res) => {
         const user = new userModel(data)
         let result = await user.save()
         if (result) {
-            res.send({ message: "Successs" })
+            res.status(200).send({ message: "Successs" })
+        } else {
+            res.status(500).send({ message: "failed" })
         }
 
     } catch (error) {
@@ -45,12 +47,12 @@ const login = async (req, res) => {
                     email: email,
                     token: token,
                 }
-                res.send({ status: true, message: "Succesfully loged in", data: resSend })
+                res.status(200).send({ status: true, message: "Succesfully loged in", data: resSend })
             } else {
-                res.send({ message: "Please enter valid password" })
+                res.status(500).send({ message: "Please enter valid password" })
             }
         } else {
-            res.send({ message: "User not exist" })
+            res.status(500).send({ message: "User not exist" })
         }
     } catch (error) {
         console.log(error, "error")

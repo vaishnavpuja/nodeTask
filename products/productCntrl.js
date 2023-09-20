@@ -1,5 +1,4 @@
 let productModel = require('./productModel');
-const mongoosePaginate = require('mongoose-paginate');
 
 const productList = async (req, res) => {
     try {
@@ -40,12 +39,12 @@ const productList = async (req, res) => {
         let paginate =  await productModel.paginate(query, { page, limit: limit })
         
         if (result) {
-            res.send({ status: true, message: "Successs", data : result, paginate : paginate })
+            res.status(200).send({ status: true, message: "Successs", data : result, paginate : paginate })
         } else {
-            res.send({ status: false, message: "failed" })
+            res.status(500).send({ status: false, message: "failed" })
         }
     } catch (error) {
-        res.send({ status: false, message: "Something went wrong " })
+        res.status(200).send({ status: false, message: "Something went wrong " })
     }
 
 
@@ -56,12 +55,12 @@ const create = async (req, res) => {
         const product = new productModel(data)
         let result = await product.save()
         if (result) {
-            res.send({ status: true,message: "Successs" })
+            res.status(200).send({ status: true,message: "Successs" })
         } else {
-            res.send({ status: false, message: "fail" })
+            res.status(500).send({ status: false, message: "fail" })
         }
     } catch (error) {
-        res.send({ status: false, message: "Something went wrong " })
+        res.status(500).send({ status: false, message: "Something went wrong " })
     }
 }
 const deleteProduct = async (req, res) => {
@@ -69,12 +68,12 @@ const deleteProduct = async (req, res) => {
         let id = req.params.id
         const result = await productModel.deleteOne({ _id: id })
         if (result) {
-            res.send({ status: true,message: "Successs" })
+            res.status(200).send({ status: true,message: "Successs" })
         } else {
-            res.send({ status: false, message: "fail" })
+            res.status(500).send({ status: false, message: "fail" })
         }
     } catch (error) {
-        res.send({ status: false, message: "Something went wrong " })
+        res.status(500).send({ status: false, message: "Something went wrong " })
     }
 }
 const updateProduct = async (req, res) => {
@@ -83,12 +82,12 @@ const updateProduct = async (req, res) => {
         let dataToUpdate = req.body;
         const result = await productModel.updateOne({ _id: id }, dataToUpdate)
         if (result) {
-            res.send({ status: true,message: "Successs" })
+            res.status(200).send({ status: true,message: "Successs" })
         } else {
-            res.send({status: false, message: "failed" })
+            res.status(500).send({status: false, message: "failed" })
         }
     } catch (error) {
-        res.send({ status: false, message: "Something went wrong " })
+        res.status(500).send({ status: false, message: "Something went wrong " })
     }
 }
 
